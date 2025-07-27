@@ -1,0 +1,1 @@
+{"uuid":"c8e37c28-d4ed-4865-9b7f-55107706260c","name":"SauceDemo Playwright Test Suite","children":["45d17bab-4fec-433a-8e11-46d7da864226"],"befores":[{"name":"setUp","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1753367252134,"stop":1753367252540}],"afters":[],"start":1753367252112,"stop":1753367267525}

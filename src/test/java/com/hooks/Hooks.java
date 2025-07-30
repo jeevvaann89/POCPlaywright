@@ -9,8 +9,10 @@ import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 
 
+import java.io.ByteArrayInputStream;
 import java.nio.file.Paths;
 
+import io.qameta.allure.Allure;
 import org.apache.logging.log4j.Logger;
 
 public class Hooks {
@@ -48,7 +50,8 @@ public class Hooks {
                 byte[] screenshot = scenarioContext.getPage().screenshot(new com.microsoft.playwright.Page.ScreenshotOptions()
                     .setPath(Paths.get("target/screenshots/" + scenario.getName().replaceAll(" ", "_") + "_step_failure.png"))
                     .setFullPage(true));
-                scenario.attach(screenshot, "image/png", "step screenshot");
+//                scenario.attach(screenshot, "image/png", "step screenshot");
+                Allure.addAttachment("Screenshot","image/png", new ByteArrayInputStream(screenshot),"png");
                 log.info("Screenshot taken for failed step in scenario: {}", scenario.getName());
             } else {
                 log.warn("Could not take screenshot for failed step in scenario: {} as Playwright Page was null.", scenario.getName());

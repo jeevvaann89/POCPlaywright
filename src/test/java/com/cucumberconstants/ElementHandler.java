@@ -21,7 +21,6 @@ public class ElementHandler {
 
     private final Page page;
 
-    // Changed to org.apache.logging.log4j.Logger
     private static Logger log = LoggerUtil.getLogger(ElementHandler.class);
 
     /**
@@ -43,18 +42,18 @@ public class ElementHandler {
      */
     public void clickElement(Locator locator) {
         try {
-            // Changed locator.selector() to locator.toString()
+
             log.info("Attempting to click element with locator: " + locator.toString());
             // Ensure the locator is loaded and visible before clicking
             waitForLocatorToLoad(locator);
             locator.click();
             log.info("Successfully clicked element: " + locator.toString());
         } catch (PlaywrightException e) {
-            // Changed log.log(Level.SEVERE, ...) to log.error(...)
+
             log.error("PlaywrightException while clicking element " + locator.toString() + ": " + e.getMessage(), e);
             throw new RuntimeException("Failed to click element: " + locator.toString(), e);
         } catch (Exception e) {
-            // Changed log.log(Level.SEVERE, ...) to log.error(...)
+
             log.error("An unexpected error occurred while clicking element " + locator.toString() + ": " + e.getMessage(), e);
             throw new RuntimeException("An unexpected error occurred while clicking element: " + locator.toString(), e);
         }
@@ -81,18 +80,18 @@ public class ElementHandler {
      */
     public void enterText(Locator locator, String text) {
         try {
-            // Changed locator.selector() to locator.toString()
+
             log.info("Attempting to enter text '" + text + "' into element with locator: " + locator.toString());
             // Ensure the locator is loaded and editable before filling
             waitForLocatorToLoad(locator);
             locator.fill(text);
             log.info("Successfully entered text '" + text + "' into element: " + locator.toString());
         } catch (PlaywrightException e) {
-            // Changed log.log(Level.SEVERE, ...) to log.error(...)
+
             log.error("PlaywrightException while entering text into " + locator.toString() + ": " + e.getMessage(), e);
             throw new RuntimeException("Failed to enter text into element: " + locator.toString(), e);
         } catch (Exception e) {
-            // Changed log.log(Level.SEVERE, ...) to log.error(...)
+
             log.error("An unexpected error occurred while entering text into " + locator.toString() + ": " + e.getMessage(), e);
             throw new RuntimeException("An unexpected error occurred while entering text into element: " + locator.toString(), e);
         }
@@ -120,7 +119,7 @@ public class ElementHandler {
      */
     public void waitForLocatorToLoad(Locator locator) {
         try {
-            // Changed locator.selector() to locator.toString()
+
             log.info("Waiting for locator to load and become visible: " + locator.toString());
             locator.waitFor(new Locator.WaitForOptions().setState(com.microsoft.playwright.options.WaitForSelectorState.VISIBLE));
             log.info("Locator is loaded and visible: " + locator.toString());
@@ -160,11 +159,11 @@ public class ElementHandler {
             page.waitForLoadState(loadState);
             log.info("Page loaded successfully with state: " + loadState.toString());
         } catch (PlaywrightException e) {
-            // Changed log.log(Level.SEVERE, ...) to log.error(...)
+
             log.error("PlaywrightException while waiting for page to load with state " + loadState.toString() + ": " + e.getMessage(), e);
             throw new RuntimeException("Failed to wait for page to load with state: " + loadState.toString(), e);
         } catch (Exception e) {
-            // Changed log.log(Level.SEVERE, ...) to log.error(...)
+
             log.error("An unexpected error occurred while waiting for page to load with state " + loadState.toString() + ": " + e.getMessage(), e);
             throw new RuntimeException("An unexpected error occurred while waiting for page to load with state: " + loadState.toString(), e);
         }
@@ -189,11 +188,11 @@ public class ElementHandler {
             }
             return isVisible;
         } catch (PlaywrightException e) {
-            // Changed log.log(Level.WARNING, ...) to log.warn(...)
+
             log.warn("PlaywrightException while checking selector presence " + selector + ": " + e.getMessage());
             return false;
         } catch (Exception e) {
-            // Changed log.log(Level.SEVERE, ...) to log.error(...)
+
             log.error("An unexpected error occurred while checking selector presence " + selector + ": " + e.getMessage(), e);
             throw new RuntimeException("An unexpected error occurred while checking selector presence: " + selector, e);
         }
@@ -209,16 +208,16 @@ public class ElementHandler {
      */
     public void assertLocatorIsVisible(Locator locator) {
         try {
-            // Changed locator.selector() to locator.toString()
+
             log.info("Asserting that locator is visible: " + locator.toString());
             assertThat(locator).isVisible();
             log.info("Assertion passed: Locator '" + locator.toString() + "' is visible.");
         } catch (AssertionError e) {
-            // Changed log.log(Level.SEVERE, ...) to log.error(...)
+
             log.error("Assertion failed: Locator '" + locator.toString() + "' is not visible. " + e.getMessage(), e);
             throw e; // Re-throw the assertion error to indicate test failure
         } catch (Exception e) {
-            // Changed log.log(Level.SEVERE, ...) to log.error(...)
+
             log.error("An unexpected error occurred during assertion for locator " + locator.toString() + ": " + e.getMessage(), e);
             throw new RuntimeException("An unexpected error occurred during assertion for locator: " + locator.toString(), e);
         }
@@ -235,16 +234,16 @@ public class ElementHandler {
      */
     public void assertLocatorHasText(Locator locator, String expectedText) {
         try {
-            // Changed locator.selector() to locator.toString()
+
             log.info("Asserting that locator '" + locator.toString() + "' has text: '" + expectedText + "'");
             assertThat(locator).hasText(expectedText);
             log.info("Assertion passed: Locator '" + locator.toString() + "' has text '" + expectedText + "'.");
         } catch (AssertionError e) {
-            // Changed log.log(Level.SEVERE, ...) to log.error(...)
+
             log.error("Assertion failed: Locator '" + locator.toString() + "' does not have text '" + expectedText + "'. Actual text might differ. " + e.getMessage(), e);
             throw e; // Re-throw the assertion error to indicate test failure
         } catch (Exception e) {
-            // Changed log.log(Level.SEVERE, ...) to log.error(...)
+
             log.error("An unexpected error occurred during assertion for locator " + locator.toString() + ": " + e.getMessage(), e);
             throw new RuntimeException("An unexpected error occurred during assertion for locator: " + locator.toString(), e);
         }

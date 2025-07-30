@@ -21,11 +21,8 @@ public class LoginSteps {
 
     @Given("I am on the login page")
     public void i_am_on_the_login_page() {
-        String environment = System.getProperty("environment");
-        String baseUrl = ConfigurationReader.getProperty(environment + ".base.url");
-        log.info("Base URL: {}", baseUrl);
-        String url = ConfigurationReader.getProperty("app.url");
-        log.info("Navigating to application URL: {}", ConfigurationReader.getEnvProperty("base.url"));
+        String url = ConfigurationReader.getEnvProperty("base.url");
+        log.info("Navigating to application URL: {}", url);
         loginPage.navigateToLoginPage(url);
     }
 

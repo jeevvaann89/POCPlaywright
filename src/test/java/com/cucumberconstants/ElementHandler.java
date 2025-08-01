@@ -2,7 +2,6 @@ package com.cucumberconstants;
 
 import com.microsoft.playwright.*;
 import com.microsoft.playwright.options.LoadState;
-import com.microsoft.playwright.assertions.LocatorAssertions;
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
 // Removed java.util.logging.Level as it's not compatible with Log4j

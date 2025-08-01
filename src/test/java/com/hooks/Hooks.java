@@ -30,6 +30,7 @@ public class Hooks {
     /**
      * This method runs before each Cucumber scenario.
      * It initializes the Playwright driver and sets the Page in ScenarioContext.
+     * @param scenario
      */
     @Before
     public void setup(Scenario scenario) {
@@ -43,25 +44,23 @@ public class Hooks {
     
     @AfterStep
     public void afterStep(Scenario scenario) {
-//        if (scenario.isFailed()) {
-            log.error("Step failed in scenario: {}. Taking screenshot...", scenario.getName());
-            // Ensure page is not null before taking screenshot
-            if (scenarioContext.getPage() != null) {
+        log.error("Step failed in scenario: {}. Taking screenshot...", scenario.getName());
+        if (scenarioContext.getPage() != null) {
                 byte[] screenshot = scenarioContext.getPage().screenshot(new com.microsoft.playwright.Page.ScreenshotOptions()
                     .setPath(Paths.get("target/screenshots/" + scenario.getName().replaceAll(" ", "_") + "_step_failure.png"))
                     .setFullPage(true));
 //                scenario.attach(screenshot, "image/png", "step screenshot");
                 Allure.addAttachment("Screenshot","image/png", new ByteArrayInputStream(screenshot),"png");
                 log.info("Screenshot taken for failed step in scenario: {}", scenario.getName());
-            } else {
+        } else {
                 log.warn("Could not take screenshot for failed step in scenario: {} as Playwright Page was null.", scenario.getName());
-            }
-//        }
+        }
     }
 
     /**
      * This method runs after each Cucumber scenario.
      * It closes the Playwright driver and takes a screenshot if the scenario fails.
+     * @param scenario
      */
     @After
     public void tearDown(Scenario scenario) {
